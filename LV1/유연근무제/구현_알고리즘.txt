@@ -1,0 +1,91 @@
+# 유연근무제 구현 알고리즘
+
+## 알고리즘 구현 단계
+
+1. 시간 변환 함수
+   ```python
+   def time_to_minutes(time: int) -> int:
+       """시각을 분으로 변환합니다."""
+       hours = time // 100
+       minutes = time % 100
+       return hours * 60 + minutes
+   ```
+
+2. 요일 체크 함수
+   ```python
+   def is_weekend(day: int) -> bool:
+       """해당 요일이 주말인지 확인합니다."""
+       return day == 6 or day == 7  # 6: 토요일, 7: 일요일
+   ```
+
+3. 지각 체크 함수
+   ```python
+   def is_late(actual: int, expected: int) -> bool:
+       """실제 출근 시각이 지각인지 확인합니다."""
+       actual_minutes = time_to_minutes(actual)
+       expected_minutes = time_to_minutes(expected)
+       return actual_minutes > expected_minutes + 10
+   ```
+
+4. 메인 로직
+   ```python
+   def solution(schedules: list[int], timelogs: list[list[int]], startday: int) -> int:
+       n = len(schedules)
+       result = 0
+       
+       for i in range(n):
+           is_qualified = True
+           current_day = startday
+           
+           for j in range(7):
+               if not is_weekend(current_day):
+                   if is_late(timelogs[i][j], schedules[i]):
+                       is_qualified = False
+                       break
+               current_day = (current_day % 7) + 1
+           
+           if is_qualified:
+               result += 1
+       
+       return result
+   ```
+
+## 핵심 로직 설명
+1. 시간 변환
+   - 시각을 분 단위로 변환하여 비교
+   - 시간과 분을 분리하여 계산
+
+2. 요일 처리
+   - startday부터 시작하여 7일간 순환
+   - 주말은 체크하지 않음
+   - 요일이 7을 넘어가면 1로 돌아감
+
+3. 지각 판단
+   - 실제 출근 시각과 희망 시각을 분으로 변환
+   - 10분 초과 여부 확인
+
+## 예외 처리
+1. 입력값 검증
+   ```python
+   if not (1 <= len(schedules) <= 1000 and 
+           1 <= len(timelogs) <= 1000 and 
+           1 <= startday <= 7):
+       raise ValueError("Invalid input parameters")
+   ```
+
+2. 시간 형식 검증
+   ```python
+   def validate_time(time: int) -> bool:
+       hours = time // 100
+       minutes = time % 100
+       return 0 <= hours <= 23 and 0 <= minutes <= 59
+   ```
+
+## 최적화 기법
+1. 시간 변환 최적화
+   - 한 번의 나눗셈과 나머지 연산으로 시간과 분 추출
+   - 불필요한 변환 제거
+
+2. 요일 처리 최적화
+   - 단순 비교로 주말 판별
+   - 모듈로 연산으로 요일 순환 
