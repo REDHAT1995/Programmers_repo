@@ -1,0 +1,28 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Python 코딩 규칙
+
+## 코드 스타일
+- Python 3 버전 이상만 사용
+- PEP 8 스타일 가이드 준수
+- 들여쓰기: 4칸 공백
+- 명명 규칙:
+  - 변수/함수: snake_case
+  - 클래스: PascalCase
+  - 상수: UPPER_CASE
+
+## 코드 작성
+- Type hints 필수
+- Docstring 필수
+- 한글 주석 사용 가능
+- 단일 함수 최대 50줄 제한
+- 예외 처리 구현 필수
+
+## 최적화
+- 시간/공간 복잡도 고려
+- 최대한 시간이 절약되는 알고리즘 구현
+- 적절한 자료구조 사용
+- 메모리 관리 최적화

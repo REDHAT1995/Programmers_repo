@@ -1,0 +1,11 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Python 코딩 규칙
+
+## 개발 환경
+- 가상환경 사용
+- requirements.txt 관리
+- 코드 포맷터/린터 사용

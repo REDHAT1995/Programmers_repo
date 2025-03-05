@@ -1,0 +1,11 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Python 코딩 규칙
+
+## 테스트
+- 테스트 케이스 필수
+- 경계값 테스트 포함
+- 예외 상황 테스트
