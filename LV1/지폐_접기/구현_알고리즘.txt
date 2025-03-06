@@ -1,0 +1,27 @@
+구현 알고리즘:
+
+1. 초기화:
+- answer = 0 (접기 횟수 초기화)
+- wallet_sorted = sorted(wallet) (지갑 크기 정렬)
+- bill_sorted = sorted(bill) (지폐 크기 정렬)
+
+2. 반복문:
+while bill_sorted[0] > wallet_sorted[0] or bill_sorted[1] > wallet_sorted[1]:
+    if bill_sorted[1] > bill_sorted[0]:
+        bill_sorted[1] = bill_sorted[1] // 2
+    else:
+        bill_sorted[0] = bill_sorted[0] // 2
+    answer += 1
+
+3. 예외 처리:
+- 홀수 길이 처리: 정수 나눗셈 연산자(//) 사용
+- 90도 회전 고려: 정렬된 상태로 유지
+
+4. 반환:
+return answer
+
+핵심 로직:
+1. 지갑과 지폐의 크기를 정렬하여 비교
+2. 지폐의 긴 쪽을 반으로 접기
+3. 접기 횟수 카운트
+4. 지폐가 지갑에 들어갈 때까지 반복 
