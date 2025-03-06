@@ -11,7 +11,21 @@ def solution(mats: List[int], park: List[List[str]]) -> int:
     Returns:
         int: 놓을 수 있는 가장 큰 돗자리의 한 변 길이, 불가능한 경우 -1
     """
-    answer = 0
+    mats.sort(reverse=True)
+    answer = -1
+    
+    rows = len(park)  # 행의 개수
+    cols = len(park[0])  # 열의 개수
+    
+    # 모든 매트 크기 순회(큰 순서)
+    for size in mats:
+        # 모든 공원 포인트 순회
+        for i in range(rows - size + 1):
+            for j in range(cols - size + 1):
+                subarray = [row[j:j+size] for row in park[i:i+size]] # 현재 포인트에서 매트 크기만큼 잘라서 부분 배열 생성
+                if all(subarray[r][c] == "-1" for r in range(size) for c in range(size)): # 부분 배열이 모두 -1인 경우
+                    answer = size
+                    return answer
     return answer
 
 def test_solution():
