@@ -1,0 +1,32 @@
+[문제 분석]
+
+1. 요구사항 분석
+   - 가장 큰 물고기 10마리 선택
+   - NULL 값(10cm 이하) 제외
+   - 정렬 조건 적용 (길이 내림차순, ID 오름차순)
+
+2. 제약사항 분석
+   - LENGTH가 NULL인 경우는 10cm 이하를 의미
+   - LENGTH에 NULL만 있는 경우는 없음
+   - 결과의 상위 10개 물고기는 모두 10cm 초과
+
+3. 해결 방법
+   a) NULL 값 제외
+      - WHERE LENGTH IS NOT NULL 조건 사용
+   
+   b) 정렬 조건 적용
+      - ORDER BY LENGTH DESC: 길이 기준 내림차순
+      - ORDER BY ID ASC: 길이가 같을 때 ID 오름차순
+   
+   c) 결과 제한
+      - LIMIT 10: 상위 10개 결과만 반환
+
+4. 시간 복잡도
+   - ORDER BY 연산: O(n log n)
+   - WHERE 조건 검사: O(n)
+   - LIMIT 적용: O(1)
+   - 전체 시간 복잡도: O(n log n)
+
+5. 최적화 포인트
+   - LENGTH IS NOT NULL 조건을 먼저 적용하여 정렬 대상 데이터 감소
+   - 인덱스 활용 가능 (LENGTH, ID 컬럼) 

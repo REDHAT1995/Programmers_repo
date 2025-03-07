@@ -6,16 +6,19 @@
 ## 알고리즘 순서도
 ```mermaid
 flowchart TD
-    A[시작] --> B[테이블 스캔]
+    A[시작] --> B[ECOLI_DATA 테이블 스캔]
     B --> C{2번 형질 없음?<br/>GENOTYPE & 2 = 0}
-    C -->|Yes| D{1번 형질 있음?<br/>GENOTYPE & 1 > 0}
     C -->|No| F[다음 레코드]
+    C -->|Yes| D{1번 형질 있음?<br/>GENOTYPE & 1 > 0}
     D -->|Yes| E[카운트 증가]
     D -->|No| G{3번 형질 있음?<br/>GENOTYPE & 4 > 0}
     G -->|Yes| E
     G -->|No| F
-    F --> B
     E --> F
+    F --> H{모든 레코드<br/>처리 완료?}
+    H -->|No| B
+    H -->|Yes| I[결과 출력]
+    I --> J[종료]
 ```
 
 ## 실행 방법

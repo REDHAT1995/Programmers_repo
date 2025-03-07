@@ -1,0 +1,49 @@
+[구현 알고리즘 상세 설명]
+
+1. 데이터 필터링 단계
+   - WHERE LENGTH IS NOT NULL 조건 사용
+   - 10cm 이하인 물고기(LENGTH가 NULL인 데이터) 제외
+   - 이 단계에서 불필요한 데이터가 제거되어 정렬 대상 데이터 감소
+
+2. 정렬 단계
+   a) 1차 정렬: LENGTH 기준 내림차순
+      - ORDER BY LENGTH DESC
+      - 가장 큰 물고기부터 정렬됨
+      - NULL 값은 이미 제외되어 있으므로 고려하지 않음
+   
+   b) 2차 정렬: ID 기준 오름차순
+      - ORDER BY ID ASC
+      - LENGTH가 동일한 경우에만 적용
+      - 안정적인 정렬 보장
+
+3. 결과 제한 단계
+   - LIMIT 10 적용
+   - 정렬된 결과에서 상위 10개만 선택
+   - 이미 정렬이 완료된 상태이므로 추가 연산 불필요
+
+4. SQL 실행 순서
+   FROM → WHERE → ORDER BY → LIMIT
+   a) FROM FISH_INFO
+      - 테이블 데이터 접근
+   b) WHERE LENGTH IS NOT NULL
+      - NULL 값 필터링
+   c) ORDER BY LENGTH DESC, ID ASC
+      - 2단계 정렬 수행
+   d) LIMIT 10
+      - 최종 결과 제한
+
+5. 최적화 고려사항
+   a) 인덱스 활용
+      - LENGTH 컬럼에 대한 내림차순 인덱스
+      - ID 컬럼에 대한 오름차순 인덱스
+      - 복합 인덱스 (LENGTH DESC, ID ASC) 고려
+   
+   b) 실행 계획
+      - WHERE 조건이 먼저 적용되어 정렬 대상 감소
+      - ORDER BY에 인덱스 활용 가능
+      - LIMIT이 마지막에 적용되어 메모리 사용 최소화
+
+6. 예상 실행 결과
+   - LENGTH > 10cm인 물고기 중 가장 큰 10마리 선택
+   - 동일 길이의 물고기는 ID 순으로 정렬
+   - NULL 값은 결과에 포함되지 않음 
