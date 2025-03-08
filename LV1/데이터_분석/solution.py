@@ -18,6 +18,17 @@ def solution(data: List[List[int]], ext: str, val_ext: int, sort_by: str) -> Lis
         [[3, 20300401, 10, 8], [1, 20300104, 100, 80]]
     """
     answer = []
+
+    # 데이터 컬럼 이름 표시
+    data_name = ["code", "date", "maximum", "remain"]
+
+    ext_index = data_name.index(ext) # 추출 기준 컬럼 인덱스
+    filtered_data = [data[i] for i in range(len(data)) if data[i][ext_index] < val_ext]    # val_ext 보다 작은 데이터만 추출
+
+    # 필터링 된 데이터를 sort_by 기준으로 오름차순 정렬
+    sorted_data = sorted(filtered_data, key=lambda x: x[data_name.index(sort_by)])
+    
+    answer = sorted_data
     return answer
 
 def test_solution():
