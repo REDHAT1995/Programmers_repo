@@ -1,0 +1,52 @@
+[문제 설명]
+2차원 격자 보드판에서 선택한 칸의 이웃한 칸들 중 같은 색상으로 칠해진 칸의 개수를 찾는 문제입니다.
+
+[입력 형식]
+1. board: 각 칸의 색상이 담긴 2차원 문자열 리스트
+   - board[i][j]는 해당 칸의 색상을 나타내는 영어 소문자 문자열
+   - 모든 칸은 색상 정보를 가짐
+
+2. h: 선택한 칸의 세로 위치
+   - 0 이상 board의 길이 미만의 정수
+
+3. w: 선택한 칸의 가로 위치
+   - 0 이상 board의 길이 미만의 정수
+
+[제한사항]
+1. board 크기
+   - 1 ≤ board의 길이 ≤ 7
+   - board의 길이와 board[n]의 길이는 동일 (정사각형)
+
+2. 색상 문자열
+   - 1 ≤ board[h][w]의 길이 ≤ 10
+   - 영어 소문자로만 구성
+
+3. 위치 범위
+   - 0 ≤ h < board의 길이
+   - 0 ≤ w < board의 길이
+
+[출력 형식]
+- 선택한 칸과 같은 색상을 가진 이웃한 칸의 개수
+- 이웃한 칸은 상하좌우로 인접한 칸을 의미
+
+[입출력 예시]
+Example 1:
+board = [
+    ["blue", "red", "orange", "red"],
+    ["red", "red", "blue", "orange"],
+    ["blue", "orange", "red", "red"],
+    ["orange", "orange", "red", "blue"]
+]
+h = 1
+w = 1
+result = 2
+
+Example 2:
+board = [
+    ["yellow", "green", "blue"],
+    ["blue", "green", "yellow"],
+    ["yellow", "blue", "blue"]
+]
+h = 0
+w = 1
+result = 1 

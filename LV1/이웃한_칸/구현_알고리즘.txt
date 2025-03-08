@@ -1,0 +1,100 @@
+[구현 알고리즘 상세 설명]
+
+1. 데이터 구조 초기화
+   ```python
+   # 보드 크기 확인
+   n = len(board)
+   
+   # 카운터 초기화
+   count = 0
+   
+   # 방향 배열 정의 (상하좌우)
+   dh = [0, 1, -1, 0]  # 세로 방향
+   dw = [1, 0, 0, -1]  # 가로 방향
+   
+   # 현재 위치 색상
+   current_color = board[h][w]
+   ```
+
+2. 이웃한 칸 확인 로직
+   ```python
+   # 4방향 순회
+   for i in range(4):
+       # 다음 위치 계산
+       h_check = h + dh[i]
+       w_check = w + dw[i]
+       
+       # 범위 체크
+       if 0 <= h_check < n and 0 <= w_check < n:
+           # 색상 비교 및 카운트
+           if board[h_check][w_check] == current_color:
+               count += 1
+   ```
+
+3. 구현 세부사항
+   a) 방향 처리
+      - 오른쪽: dh[0]=0, dw[0]=1
+      - 아래쪽: dh[1]=1, dw[1]=0
+      - 위쪽: dh[2]=-1, dw[2]=0
+      - 왼쪽: dh[3]=0, dw[3]=-1
+   
+   b) 범위 검사
+      ```python
+      # 유효한 범위인지 확인
+      if 0 <= h_check < n and 0 <= w_check < n:
+          # 유효한 범위일 때만 처리
+      ```
+   
+   c) 색상 비교
+      ```python
+      # 현재 칸과 이웃한 칸의 색상이 같은지 확인
+      if board[h_check][w_check] == current_color:
+          count += 1
+      ```
+
+4. 최적화 포인트
+   a) 방향 배열 활용
+      - 반복적인 코드 제거
+      - 깔끔한 방향 처리
+      - 유지보수 용이
+   
+   b) 범위 체크 최적화
+      - 한 번의 조건문으로 처리
+      - 불필요한 검사 제거
+   
+   c) 색상 비교 최적화
+      - 현재 색상 미리 저장
+      - 반복적인 접근 최소화
+
+5. 예외 처리 구현
+   ```python
+   # 입력값 검증
+   def validate_input(board, h, w):
+       if not board or not board[0]:
+           raise ValueError("보드가 비어있습니다.")
+       
+       n = len(board)
+       if not (0 <= h < n and 0 <= w < n):
+           raise ValueError("위치가 범위를 벗어났습니다.")
+   ```
+
+6. 테스트 케이스 구현
+   ```python
+   def test_solution():
+       # 기본 케이스
+       assert solution([["red", "blue"], ["blue", "red"]], 0, 0) == 0
+       
+       # 모서리 케이스
+       assert solution([["red", "red"], ["red", "red"]], 0, 0) == 2
+       
+       # 중앙 케이스
+       assert solution([["red", "red", "red"],
+                       ["red", "red", "red"],
+                       ["red", "red", "red"]], 1, 1) == 4
+   ```
+
+7. 주의사항
+   - 인덱스 범위 주의
+   - 색상 비교 시 대소문자 구분
+   - 보드 크기 제한 확인
+   - 방향 배열 순서 유지 
