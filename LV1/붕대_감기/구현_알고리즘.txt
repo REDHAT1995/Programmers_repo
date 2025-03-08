@@ -1,0 +1,113 @@
+[구현 알고리즘 상세 설명]
+
+1. 데이터 구조 초기화
+   ```python
+   # 입력 데이터 분리
+   cast_time, heal_per_second, additional_heal = bandage
+   max_health = health
+   attack_dict = {time: damage for time, damage in attacks}
+   last_attack_time = attacks[-1][0]
+   
+   # 상태 변수 초기화
+   current_health = max_health
+   continuous_success = 0
+   current_time = 0
+   ```
+
+2. 시간별 처리 단계
+   ```python
+   # 마지막 공격 시간까지 반복
+   while current_time <= last_attack_time:
+       current_time += 1
+       
+       # 공격 시간인 경우
+       if current_time in attack_dict:
+           # 데미지 적용
+           current_health -= attack_dict[current_time]
+           # 연속 성공 초기화
+           continuous_success = 0
+           
+           # 체력 0 이하 확인
+           if current_health <= 0:
+               return -1
+               
+       # 공격 시간이 아닌 경우
+       else:
+           # 기본 회복
+           current_health += heal_per_second
+           # 연속 성공 증가
+           continuous_success += 1
+           
+           # 연속 성공 보너스 체크
+           if continuous_success == cast_time:
+               current_health += additional_heal
+               continuous_success = 0
+           
+           # 최대 체력 제한
+           current_health = min(current_health, max_health)
+   ```
+
+3. 결과 반환 단계
+   ```python
+   return current_health
+   ```
+
+4. 최적화 방안
+   a) 시간 최적화
+      ```python
+      # 공격 시간 사이의 회복량 한 번에 계산
+      def calculate_heal_between_attacks(start_time, end_time):
+          duration = end_time - start_time
+          full_cycles = duration // cast_time
+          remaining_time = duration % cast_time
+          
+          total_heal = (duration * heal_per_second) + (full_cycles * additional_heal)
+          return total_heal
+      ```
+   
+   b) 공간 최적화
+      ```python
+      # 공격 시간을 딕셔너리로 변환하여 빠른 검색
+      attack_dict = {time: damage for time, damage in attacks}
+      ```
+
+5. 예외 처리
+   a) 체력 관리
+      ```python
+      # 최대 체력 제한
+      current_health = min(current_health, max_health)
+      
+      # 사망 체크
+      if current_health <= 0:
+          return -1
+      ```
+   
+   b) 시간 처리
+      ```python
+      # 첫 공격 이전 회복
+      first_attack_time = attacks[0][0]
+      if first_attack_time > 1:
+          heal = calculate_heal_between_attacks(1, first_attack_time)
+          current_health = min(max_health, current_health + heal)
+      ```
+
+6. 테스트 케이스 처리
+   ```python
+   def test_case_1():
+       bandage = [5, 1, 5]
+       health = 30
+       attacks = [[2, 10], [9, 15], [10, 5], [11, 5]]
+       assert solution(bandage, health, attacks) == 5
+   
+   def test_case_2():
+       bandage = [3, 2, 7]
+       health = 20
+       attacks = [[1, 15], [5, 16], [8, 6]]
+       assert solution(bandage, health, attacks) == -1
+   ```
+
+7. 주의사항
+   - 공격 시간에는 회복이 적용되지 않음
+   - 연속 성공은 공격 시 즉시 초기화
+   - 최대 체력 초과 불가
+   - 체력이 0 이하가 되면 즉시 종료 
