@@ -6,23 +6,23 @@
 ## 알고리즘 순서도
 ```mermaid
 flowchart TD
-    A[시작] --> B[입력값 분리 및 초기화<br/>cast_time, heal_per_sec, bonus_heal = bandage<br/>max_health = health<br/>current_health = max_health<br/>continuous_success = 0]
-    B --> C[공격 정보 변환<br/>attack_dict = {time: damage}<br/>last_attack_time = attacks[-1][0]]
-    C --> D[current_time = 1]
-    D --> E{current_time ≤<br/>last_attack_time?}
-    E -->|Yes| F{current_time이<br/>attack_dict에 있는가?}
-    F -->|Yes| G[피해량 적용<br/>current_health -= attack_dict[current_time]<br/>continuous_success = 0]
-    G --> H{current_health ≤ 0?}
+    A[시작] --> B[초기화]
+    B --> C[공격 정보 변환]
+    C --> D[시간 1로 설정]
+    D --> E{시간 <= 마지막 공격?}
+    E -->|Yes| F{현재 시간이 공격?}
+    F -->|Yes| G[피해량 적용]
+    G --> H{체력 <= 0?}
     H -->|Yes| I[return -1]
-    H -->|No| J[current_time += 1]
-    F -->|No| K[기본 회복<br/>current_health += heal_per_sec<br/>continuous_success += 1]
-    K --> L{continuous_success ==<br/>cast_time?}
-    L -->|Yes| M[추가 회복<br/>current_health += bonus_heal<br/>continuous_success = 0]
-    L -->|No| N[최대 체력 제한<br/>current_health = min<br/>(current_health, max_health)]
+    H -->|No| J[시간 증가]
+    F -->|No| K[기본 회복]
+    K --> L{연속 성공 = 시전 시간?}
+    L -->|Yes| M[추가 회복]
+    L -->|No| N[체력 제한]
     M --> N
     N --> J
     J --> E
-    E -->|No| O[return current_health]
+    E -->|No| O[return 체력]
     O --> P[종료]
     I --> P
 ```
