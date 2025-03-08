@@ -6,20 +6,20 @@
 ## 알고리즘 순서도
 ```mermaid
 flowchart TD
-    A[시작] --> B[answer = 0으로 초기화]
-    B --> C[현재 위치 h,w의 색상 저장<br/>current_color = board[h][w]]
-    C --> D[방향 배열 초기화<br/>dh = [0,1,-1,0]<br/>dw = [1,0,0,-1]]
-    D --> E[i = 0<br/>방향 인덱스 초기화]
-    E --> F{i < 4?}
-    F -->|Yes| G[이웃한 칸 좌표 계산<br/>h_check = h + dh[i]<br/>w_check = w + dw[i]]
-    G --> H{좌표가 유효한가?<br/>0 ≤ h_check < len(board) AND<br/>0 ≤ w_check < len(board[0])}
-    H -->|Yes| I{이웃한 칸 색상 확인<br/>board[h_check][w_check] ==<br/>current_color?}
-    I -->|Yes| J[answer 증가<br/>answer += 1]
-    I -->|No| K[다음 방향<br/>i += 1]
+    A[시작] --> B[카운터 초기화]
+    B --> C[현재 칸 색상 저장]
+    C --> D[방향 배열 설정]
+    D --> E[방향 인덱스 i=0]
+    E --> F{i가 4보다 작은가?}
+    F -->|Yes| G[이웃한 칸 좌표 계산]
+    G --> H{좌표가 범위 내인가?}
+    H -->|Yes| I{같은 색상인가?}
+    I -->|Yes| J[카운터 증가]
+    I -->|No| K[i 증가]
     H -->|No| K
     J --> K
     K --> F
-    F -->|No| L[answer 반환]
+    F -->|No| L[카운터 반환]
     L --> M[종료]
 ```
 
