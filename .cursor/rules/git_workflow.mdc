@@ -1,0 +1,66 @@
+---
+description: Git 워크플로우 및 버전 관리 규칙
+globs: ["**/*"]
+alwaysApply: true
+---
+# Git 워크플로우
+
+## 1. 브랜치 전략
+- main: 메인 브랜치
+- develop: 개발 브랜치
+- feature/*: 기능 개발 브랜치
+- bugfix/*: 버그 수정 브랜치
+- release/*: 릴리즈 브랜치
+
+## 2. 커밋 메시지 규칙
+```
+<type>(<scope>): <subject>
+
+<body>
+
+<footer>
+```
+
+### 2.1 Type
+- feat: 새로운 기능
+- fix: 버그 수정
+- docs: 문서 수정
+- style: 코드 포맷팅
+- refactor: 코드 리팩토링
+- test: 테스트 코드
+- chore: 빌드/설정 변경
+
+### 2.2 Scope
+- 문제 번호 또는 기능 영역
+- 생략 가능
+
+### 2.3 Subject
+- 50자 이내
+- 현재형 사용
+- 첫 글자 대문자
+- 마침표 생략
+
+## 3. 작업 프로세스
+1. develop 브랜치에서 feature 브랜치 생성
+2. 기능 개발 및 테스트
+3. develop 브랜치로 PR 생성
+4. 코드 리뷰
+5. develop 브랜치로 병합
+6. release 브랜치 생성
+7. main 브랜치로 병합
+
+## 4. 제외 파일
+- .cursor/
+- __pycache__/
+- *.pyc
+- .env
+- .venv/
+- .pytest_cache/
+- .coverage
+- .DS_Store
+
+## 5. Git 설정
+- .gitignore 파일 관리
+- Git hooks 설정
+- 자동화 스크립트 관리
+- 보안 설정 

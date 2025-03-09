@@ -1,0 +1,80 @@
+---
+description: 개발 환경 설정 가이드
+globs: ["**/*"]
+alwaysApply: true
+---
+# 환경 설정 가이드
+
+## 1. Python 환경
+### 1.1 Python 버전
+- Python 3.8 이상 사용
+- pyenv로 버전 관리
+
+### 1.2 가상환경
+```bash
+# 가상환경 생성
+python -m venv .venv
+
+# 가상환경 활성화
+source .venv/bin/activate  # Linux/Mac
+.venv\Scripts\activate     # Windows
+```
+
+## 2. 의존성 관리
+### 2.1 requirements.txt
+```
+pytest==7.4.0
+black==23.7.0
+flake8==6.1.0
+mypy==1.5.1
+```
+
+### 2.2 의존성 설치
+```bash
+pip install -r requirements.txt
+```
+
+## 3. 개발 도구
+### 3.1 코드 포맷터
+- black: 코드 스타일
+- isort: import 정렬
+
+### 3.2 린터
+- flake8: 코드 품질
+- mypy: 타입 체크
+- pylint: 코드 분석
+
+### 3.3 테스트 도구
+- pytest: 테스트 실행
+- pytest-cov: 커버리지 측정
+
+## 4. IDE 설정
+### 4.1 VS Code
+- Python 확장
+- Pylance
+- Python Test Explorer
+- GitLens
+
+### 4.2 설정 파일
+- .vscode/settings.json
+- .editorconfig
+- .pre-commit-config.yaml
+
+## 5. 자동화 도구
+### 5.1 pre-commit hooks
+```yaml
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+    -   id: trailing-whitespace
+    -   id: end-of-file-fixer
+    -   id: check-yaml
+    -   id: check-added-large-files
+```
+
+### 5.2 CI/CD 설정
+- GitHub Actions
+- 자동 테스트
+- 자동 배포
+- 코드 품질 검사 

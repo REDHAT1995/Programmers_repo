@@ -1,0 +1,143 @@
+---
+description: Python 코딩 표준 및 스타일 가이드
+globs: ["**/*.py"]
+alwaysApply: true
+---
+# Python 코딩 표준
+
+## 1. 코드 스타일
+### 1.1 기본 규칙
+- Python 3.7 이상 버전 사용
+- PEP 8 스타일 가이드 엄격 준수
+- 들여쓰기: 4칸 공백 (탭 사용 금지)
+- 한 줄 최대 길이: 79자
+- 함수/클래스 사이: 2줄 공백
+- 메서드 사이: 1줄 공백
+- 연산자 주변: 한 칸 공백
+- 콤마 뒤: 한 칸 공백
+- 괄호 안쪽: 공백 없음
+- 괄호 바깥쪽: 공백 없음
+
+### 1.2 줄바꿈 규칙
+- 긴 줄은 괄호, 대괄호, 중괄호로 감싸서 줄바꿈
+- 줄바꿈 후 들여쓰기는 원래 줄의 시작점에 맞춤
+- 여러 줄 문자열은 삼중 따옴표 사용
+
+## 2. 명명 규칙
+### 2.1 기본 규칙
+- 변수/함수: snake_case (소문자 + 언더스코어)
+- 클래스: PascalCase (대문자로 시작)
+- 상수: UPPER_CASE (대문자 + 언더스코어)
+- 모듈: 소문자
+- 패키지: 소문자
+- 예외 클래스: PascalCase + Error/Exception
+
+### 2.2 특수 규칙
+- 내부 사용 변수: 언더스코어로 시작
+- 매직 메서드: 언더스코어 2개로 시작/종료
+- 타입 변수: PascalCase + Type
+- 제네릭 타입: T, U, V 등 단일 대문자
+
+## 3. 코드 작성
+### 3.1 Type Hints
+```python
+from typing import List, Dict, Optional, Union, Any, Tuple, Set
+
+# 기본 타입 힌트
+def basic_function(param1: int, param2: str) -> bool:
+    pass
+
+# 복합 타입 힌트
+def complex_function(
+    param1: List[Dict[str, int]],
+    param2: Optional[str] = None,
+    param3: Union[int, float] = 0
+) -> Tuple[str, int]:
+    pass
+
+# 제네릭 타입 힌트
+T = TypeVar('T')
+def generic_function(items: List[T]) -> T:
+    pass
+
+# Any 타입 힌트
+def any_function(param: Any) -> Any:
+    pass
+```
+
+### 3.2 Docstring
+```python
+def solution(param1: int, param2: str) -> bool:
+    """
+    문제 해결을 위한 메인 함수
+    
+    Args:
+        param1 (int): 첫 번째 매개변수 설명
+        param2 (str): 두 번째 매개변수 설명
+        
+    Returns:
+        bool: 결과값 설명
+        
+    Raises:
+        ValueError: 잘못된 입력값에 대한 예외 설명
+        
+    Examples:
+        >>> solution(1, "test")
+        True
+    """
+    pass
+```
+
+### 3.3 주석
+- 복잡한 로직에 대한 설명
+- 한글 주석 사용 가능
+- TODO, FIXME, NOTE 태그 사용
+- 주석은 코드 위에 작성
+- 인라인 주석은 코드 뒤에 2칸 공백 후 작성
+
+## 4. 코드 품질
+### 4.1 함수/클래스 크기
+- 단일 함수 최대 50줄
+- 클래스 최대 500줄
+- 메서드 최대 30줄
+
+### 4.2 복잡도 제한
+- 순환 복잡도 최대 10
+- 인수 개수 최대 5개
+- 중첩 깊이 최대 4단계
+
+### 4.3 코드 품질 규칙
+- 중복 코드 제거
+- 예외 처리 필수
+- 매직 넘버 사용 금지
+- 긴 함수/클래스 분리
+- 의미 있는 변수명 사용
+
+## 5. 최적화
+### 5.1 성능 최적화
+- 시간/공간 복잡도 고려
+- 적절한 자료구조 사용
+- 메모리 관리 최적화
+- 불필요한 연산 제거
+- 캐싱 활용
+
+### 5.2 코드 최적화
+- 리스트 컴프리헨션 활용
+- 제너레이터 사용
+- 데코레이터 활용
+- 컨텍스트 매니저 사용
+- 비동기 처리 활용
+
+## 6. 테스트
+### 6.1 테스트 작성
+- 단위 테스트 필수
+- 테스트 커버리지 80% 이상
+- 엣지 케이스 테스트
+- 예외 케이스 테스트
+
+### 6.2 테스트 규칙
+- 테스트 함수는 test_로 시작
+- 각 테스트는 독립적
+- 테스트 데이터는 fixture 사용
+- 모의 객체(mock) 활용
+- 통합 테스트 포함
