@@ -1,0 +1,87 @@
+# 공원 산책 - 구현 알고리즘
+
+## 알고리즘 구현 단계
+1. 시작 위치 찾기
+   - 2중 반복문으로 'S' 위치 탐색
+   - 시작 위치 좌표 저장
+
+2. 방향 정보 정의
+   - 동(E): [0, 1]
+   - 서(W): [0, -1]
+   - 남(S): [1, 0]
+   - 북(N): [-1, 0]
+
+3. 명령어 처리
+   - 명령어 파싱 (방향, 거리)
+   - 이동 가능 여부 확인
+     - 경계 체크
+     - 장애물 체크
+   - 이동 실행
+
+4. 결과 반환
+   - 최종 위치 좌표 반환
+
+## 핵심 로직 설명
+1. 시작 위치 찾기
+   ```python
+   for i in range(len(park)):
+       for j in range(len(park[0])):
+           if park[i][j] == 'S':
+               start_pos = [i, j]
+               break
+   ```
+
+2. 이동 가능 여부 확인
+   ```python
+   can_move = True
+   for step in range(1, distance + 1):
+       new_y = current_pos[0] + dy * step
+       new_x = current_pos[1] + dx * step
+       
+       # 경계 체크
+       if new_y < 0 or new_y >= len(park) or new_x < 0 or new_x >= len(park[0]):
+           can_move = False
+           break
+           
+       # 장애물 체크
+       if park[new_y][new_x] == 'X':
+           can_move = False
+           break
+   ```
+
+3. 이동 실행
+   ```python
+   if can_move:
+       current_pos[0] += dy * distance
+       current_pos[1] += dx * distance
+   ```
+
+## 예외 처리 방법
+1. 입력값 검증
+   - park 크기 검증
+   - routes 형식 검증
+   - 이동 거리 범위 검증
+
+2. 이동 제한 처리
+   - 공원 경계를 벗어나는 경우 무시
+   - 장애물을 만나는 경우 무시
+   - 잘못된 명령어는 무시
+
+## 최적화 기법
+1. 방향 정보 미리 정의
+   ```python
+   directions = {
+       'E': [0, 1],   # 동쪽
+       'W': [0, -1],  # 서쪽
+       'S': [1, 0],   # 남쪽
+       'N': [-1, 0]   # 북쪽
+   }
+   ```
+
+2. 이동 가능 여부 한 번에 확인
+   - 목적지까지의 경로를 한 번에 확인
+   - 중간에 불가능한 경우 즉시 중단
+
+3. 현재 위치 업데이트 최적화
+   - 이동 가능한 경우에만 위치 업데이트
+   - 불가능한 경우 현재 위치 유지 
