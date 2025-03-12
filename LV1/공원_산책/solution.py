@@ -25,8 +25,58 @@ def solution(park: List[str], routes: List[str]) -> List[int]:
     if not (1 <= len(routes) <= 50):
         raise ValueError("명령어의 개수가 제한사항을 벗어났습니다.")
     
-    answer = [0, 0]
-    return answer
+    # 방향 정보 정의
+    directions = {
+        'E': (0, 1),   # 동쪽
+        'W': (0, -1),  # 서쪽
+        'S': (1, 0),   # 남쪽
+        'N': (-1, 0)   # 북쪽
+    }
+    
+    # 시작 위치 찾기
+    cur_row, cur_col = 0, 0
+    for i, row in enumerate(park):
+        if "S" in row:
+            cur_row = i
+            cur_col = row.index("S")
+            break
+    
+    # 각 명령어 처리
+    for route in routes:
+        direction, distance = route.split()
+        distance = int(distance)
+        
+        # 이동 방향과 거리 계산
+        dy, dx = directions[direction]
+        new_row = cur_row
+        new_col = cur_col
+        can_move = True
+        
+        # 경로 상의 모든 지점 확인
+        for step in range(1, distance + 1):
+            next_row = cur_row + dy * step
+            next_col = cur_col + dx * step
+            
+            # 공원을 벗어나는 경우
+            if (next_row < 0 or next_row >= len(park) or 
+                next_col < 0 or next_col >= len(park[0])):
+                can_move = False
+                break
+            
+            # 장애물을 만나는 경우
+            if park[next_row][next_col] == 'X':
+                can_move = False
+                break
+            
+            new_row = next_row
+            new_col = next_col
+        
+        # 이동 가능한 경우에만 위치 업데이트
+        if can_move:
+            cur_row = new_row
+            cur_col = new_col
+    
+    return [cur_row, cur_col]
 
 def test_solution():
     """
